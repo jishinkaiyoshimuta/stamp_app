@@ -1,0 +1,283 @@
+:root {
+  --green: #34a853;
+  --green-dark: #2a8644;
+  --blue: #4285f4;
+  --blue-dark: #3367d6;
+  --pink: #e0568c;
+  --pink-dark: #c23f72;
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --text: #2b2f36;
+  --muted: #6b7280;
+  --danger: #ea4335;
+  --border: #e2e5ea;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.hidden { display: none !important; }
+
+.screen {
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+h1 { font-size: 22px; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 0 0 16px; }
+h3 { font-size: 16px; margin: 24px 0 8px; color: var(--muted); }
+
+.hint { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+
+.field {
+  display: block;
+  margin-bottom: 16px;
+}
+.field span {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.field input, .settings-task-list input, #settings-task-new, #settings-reward-name, #settings-reward-cost {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafbfc;
+}
+.cost-input { max-width: 90px; }
+
+#parent-pin-input {
+  width: 100%;
+  padding: 16px;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 4px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.btn {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+}
+.btn-primary { background: var(--blue); width: 100%; }
+.btn-primary:active { background: var(--blue-dark); }
+
+.btn-big {
+  width: 100%;
+  font-size: 22px;
+  padding: 22px;
+  border-radius: 20px;
+}
+.btn-blue { background: var(--blue); }
+.btn-blue:active { background: var(--blue-dark); }
+.btn-pink { background: var(--pink); }
+.btn-pink:active { background: var(--pink-dark); }
+.btn-green { background: var(--green); }
+.btn-green:active { background: var(--green-dark); }
+.btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+
+.btn-small {
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 10px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+.button-row .btn { flex: 1; }
+
+.error {
+  color: var(--danger);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 子供画面 */
+.child-wrap {
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-box {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.card-label { color: var(--muted); font-size: 16px; margin-bottom: 8px; }
+.stamp-progress {
+  font-size: 34px;
+  letter-spacing: 6px;
+  line-height: 1.4;
+}
+
+.ticket-box {
+  background: #fff0f6;
+  color: var(--pink-dark);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 16px 0 0;
+}
+
+.request-list {
+  margin-top: 8px;
+}
+.request-item {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.request-item .status-pending { color: #f9a825; font-weight: 600; }
+.request-item .status-approved { color: var(--green-dark); font-weight: 600; }
+.request-item .status-rejected { color: var(--danger); font-weight: 600; }
+
+/* モーダル */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10;
+}
+.modal-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 420px;
+  width: 100%;
+}
+.task-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.task-choice-btn {
+  background: #eef4ff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--blue-dark);
+  cursor: pointer;
+}
+.task-choice-btn:active { background: #dbe7ff; }
+.task-choice-btn:disabled { background: #f1f1f3; color: var(--muted); cursor: not-allowed; }
+
+/* 親画面 */
+.parent-wrap {
+  max-width: 560px;
+  width: 100%;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tab-btn.active {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+.tab-panel {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+.approve-item, .history-item, .settings-task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.approve-item:last-child, .history-item:last-child, .settings-task-item:last-child {
+  border-bottom: none;
+}
+.approve-item-info .task-name { font-weight: 600; }
+.approve-item-info .task-time { font-size: 13px; color: var(--muted); }
+.approve-actions { display: flex; gap: 8px; }
+.approve-actions .btn { padding: 10px 16px; font-size: 14px; }
+
+.empty-msg { color: var(--muted); text-align: center; padding: 20px 0; }
+
+.settings-task-item span { font-size: 16px; }
+.settings-task-item button {
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  font-size: 14px;
+  cursor: pointer;
+}

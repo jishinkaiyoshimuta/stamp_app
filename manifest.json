@@ -1,0 +1,8 @@
+{
+  "name": "スタンプ台紙アプリ",
+  "short_name": "スタンプ台紙",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#4285f4"
+}

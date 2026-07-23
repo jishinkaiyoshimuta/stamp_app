@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>スタンプ台紙アプリ</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="スタンプ台紙">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 初期設定画面 -->
+<section id="screen-setup" class="screen hidden">
+  <div class="card">
+    <h1>はじめに設定してください</h1>
+    <p class="hint">おうちの人が設定してください。あとから設定画面でいつでも変更できます。</p>
+
+    <label class="field">
+      <span>おうちの人の暗証番号(4桁の数字)</span>
+      <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" id="setup-pin" placeholder="例: 1234">
+    </label>
+
+    <label class="field">
+      <span>チケット1枚に必要なスタンプ数</span>
+      <input type="number" id="setup-stamps" value="3" min="1">
+    </label>
+
+    <button class="btn btn-primary" id="setup-save">この内容ではじめる</button>
+  </div>
+</section>
+
+<!-- 子供用ホーム画面 -->
+<section id="screen-child" class="screen hidden">
+  <div class="child-wrap">
+    <div class="card-box">
+      <div class="card-label">スタンプ台紙</div>
+      <div class="stamp-progress" id="child-stamp-progress"></div>
+    </div>
+
+    <div class="ticket-box" id="child-ticket-count">🎟 チケット 0まい</div>
+
+    <div class="button-row">
+      <button class="btn btn-big btn-blue" id="child-request-open">❤️ スタンプを おす</button>
+    </div>
+
+    <div class="button-row">
+      <button class="btn btn-big btn-pink" id="child-redeem-open">🎟 チケットを つかう</button>
+    </div>
+
+    <div id="child-request-list" class="request-list"></div>
+
+    <button class="btn btn-small btn-outline" id="child-goto-parent">おうちの人はこちら</button>
+  </div>
+</section>
+
+<!-- お手伝い申請モーダル -->
+<section id="modal-request" class="modal hidden">
+  <div class="modal-card">
+    <h2>なにを がんばったかな?</h2>
+    <div id="task-choice-list" class="task-choice-list"></div>
+    <button class="btn btn-outline" id="request-cancel">やめる</button>
+  </div>
+</section>
+
+<!-- チケット交換モーダル -->
+<section id="modal-redeem" class="modal hidden">
+  <div class="modal-card">
+    <h2>なにと こうかんする?</h2>
+    <div id="reward-choice-list" class="task-choice-list"></div>
+    <button class="btn btn-outline" id="redeem-cancel">やめる</button>
+  </div>
+</section>
+
+<!-- 親PIN画面 -->
+<section id="screen-parent-pin" class="screen hidden">
+  <div class="card">
+    <h1>おうちの人の暗証番号</h1>
+    <input type="text" inputmode="numeric" pattern="[0-9]*" id="parent-pin-input" placeholder="暗証番号">
+    <div class="button-row">
+      <button class="btn btn-primary" id="parent-pin-submit">すすむ</button>
+      <button class="btn btn-outline" id="parent-pin-cancel">もどる</button>
+    </div>
+    <p class="error hidden" id="parent-pin-error">暗証番号が違います</p>
+  </div>
+</section>
+
+<!-- 親用画面 -->
+<section id="screen-parent" class="screen hidden">
+  <div class="parent-wrap">
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="approve">承認</button>
+      <button class="tab-btn" data-tab="settings">設定</button>
+      <button class="tab-btn" data-tab="history">履歴</button>
+    </nav>
+
+    <div class="tab-panel" id="tab-approve">
+      <h2>スタンプ申請の承認</h2>
+      <div id="approve-stamp-list"></div>
+      <h2>チケット交換の承認</h2>
+      <div id="approve-redeem-list"></div>
+    </div>
+
+    <div class="tab-panel hidden" id="tab-settings">
+      <h2>設定</h2>
+      <label class="field">
+        <span>暗証番号</span>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="settings-pin">
+      </label>
+      <label class="field">
+        <span>チケット1枚に必要なスタンプ数</span>
+        <input type="number" id="settings-stamps" min="1">
+      </label>
+
+      <h3>お手伝い・学習の項目</h3>
+      <div id="settings-task-list"></div>
+      <div class="button-row">
+        <input type="text" id="settings-task-new" placeholder="新しい項目名">
+        <button class="btn btn-outline" id="settings-task-add">追加</button>
+      </div>
+
+      <h3>ごほうびメニュー</h3>
+      <div id="settings-reward-list"></div>
+      <div class="button-row">
+        <input type="text" id="settings-reward-name" placeholder="ごほうび名(例: YouTube15分)">
+        <input type="number" id="settings-reward-cost" min="1" value="1" class="cost-input">
+        <button class="btn btn-outline" id="settings-reward-add">追加</button>
+      </div>
+
+      <button class="btn btn-primary" id="settings-save">保存する</button>
+    </div>
+
+    <div class="tab-panel hidden" id="tab-history">
+      <h2>履歴</h2>
+      <div id="history-list"></div>
+    </div>
+
+    <button class="btn btn-small btn-outline" id="parent-goto-child">こどもの画面にもどる</button>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
